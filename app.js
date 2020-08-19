@@ -1,6 +1,6 @@
 import Koa from 'koa'
 import bodyparser from 'koa-bodyparser'
-import db from './models/db'
+import start from './models/db'
 
 const app = new Koa()
 app.use(bodyparser())
@@ -13,4 +13,6 @@ app.listen(3001, () => {
   console.log('server is on http://localhost:3001')
 })
 
+// 连接数据库
+start()
 export default app
