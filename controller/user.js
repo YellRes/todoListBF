@@ -1,14 +1,29 @@
 import user from '../models/user'
+import todoList from '../models/todoList'
 
+
+// 登录
 const login = async function (ctx, next) {
     const data = ctx.request.body
 
     const result = await user.findOne({ userName: data.userName })
 
     if (result) {
+
       const {password} = data
       if (password === result.password) {
-        info(ctx, '1001', '登录成功')
+        // info(ctx, '1001', '登录成功')
+        const taskArr = await todoList.find({userId: result._id})
+        ctx.response.body = {
+          head: {
+            code: '1000',
+            message: '登录成功',
+          },
+          body: {
+            taskArr,
+            userId: result._id,
+          }
+        }
       } else {
         info(ctx, '1001', '密码错误')
       }
@@ -16,8 +31,11 @@ const login = async function (ctx, next) {
       info(ctx, '1001', '账户不存在')
     }
 
+    next()
+
 }
 
+// 注册
 const register = async function (ctx, next) {
   const data = ctx.request.body
 
@@ -40,9 +58,10 @@ const register = async function (ctx, next) {
   next()
 }
 
-const info = (ctx, code, info1) => {
+const info = (ctx, code, message, body) => {
   ctx.response.body = {
-    code, info1
+    header:{code, message},
+    body
   }
 }
 
