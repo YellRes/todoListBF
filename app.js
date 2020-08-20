@@ -1,9 +1,11 @@
 import Koa from 'koa'
 import bodyparser from 'koa-bodyparser'
 import start from './models/db'
+import userRouter from './routes/user'
 
 const app = new Koa()
 app.use(bodyparser())
+app.use(userRouter.routes())
 
 app.on('error', (err, ctx) => {
   console.log('server error', err)
