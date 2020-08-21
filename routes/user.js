@@ -4,7 +4,7 @@ import userControl from '../controller/user'
 
 router.prefix('/users')
 
-router.get('/', async (ctx, next) => {
+router.get('/getAllUsers', async (ctx, next) => {
   ctx.response.body = await Users.find()
   next()
 })
