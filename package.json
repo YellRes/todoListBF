@@ -20,10 +20,11 @@
   "dependencies": {
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
+    "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.0",
     "koa-bodyparser": "^4.2.1",
     "koa-json": "^2.0.2",
-    "koa-jwt": "^3.3.2",
+    "koa-jwt": "^3.6.0",
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
     "mongoose": "^5.10.0"

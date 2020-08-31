@@ -1,5 +1,6 @@
 import Koa from 'koa'
 import bodyparser from 'koa-bodyparser'
+import koajwt from 'koa-jwt'
 import start from './models/db'
 import userRouter from './routes/user'
 import todoListRouter from './routes/todoList'
@@ -20,6 +21,12 @@ app.use(async (ctx, next)=> {
     await next();
   }
 });
+
+app.use(koajwt({
+  secret: 'f91'
+}).unless({
+  path: [/\/register/, /\/login/]
+}))
 
 
 app.on('error', (err, ctx) => {

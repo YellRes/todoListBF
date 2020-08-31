@@ -1,5 +1,6 @@
 import user from '../models/user'
 import todoList from '../models/todoList'
+import jwt from 'jsonwebtoken'
 
 
 // 登录
@@ -14,13 +15,20 @@ const login = async function (ctx, next) {
       if (password === result.password) {
         // info(ctx, '1001', '登录成功')
         const taskArr = await todoList.find({userId: result._id})
+        let payload = {
+          userId: result._id,
+          time:new Date().getTime(),
+          timeout:1000*60*60*2
+        }
+        let token = jwt.sign(payload, 'f91', { expiresIn: '2h' })
         ctx.response.body = {
-          head: {
+          header: {
             code: '1000',
             message: '登录成功',
           },
           body: {
             taskArr,
+            token,
             userId: result._id,
           }
         }
