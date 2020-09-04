@@ -10,6 +10,8 @@ router.get('/getAllTodoList', async (ctx, next) => {
 })
 
 router.post('/addTodoList', todoListControl.addTodoList)
+router.post('/deleteTodoList', todoListControl.deleteTodoListItem)
+router.post('/updateTodoListItem', todoListControl.updateTodoListItem)
 
 
 export default router

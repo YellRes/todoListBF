@@ -19,6 +19,7 @@
   "homepage": "https://github.com/YellRes/todoListBF#readme",
   "dependencies": {
     "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-2": "^6.24.1",
     "babel-register": "^6.26.0",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.0",
