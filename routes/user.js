@@ -11,6 +11,7 @@ router.get('/getAllUsers', async (ctx, next) => {
 
 router.post('/register', userControl.register)
 router.post('/login', userControl.login)
+router.post('/getUserInfo', userControl.userInfo)
 
 export default router
 

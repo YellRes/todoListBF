@@ -5,6 +5,7 @@ import start from './models/db'
 import userRouter from './routes/user'
 import todoListRouter from './routes/todoList'
 
+
 const app = new Koa()
 app.use(bodyparser())
 app.use(userRouter.routes())
@@ -28,6 +29,37 @@ app.use(koajwt({
   path: [/\/register/, /\/login/]
 }))
 
+// 验证token的中间件
+app.use((ctx, next) => {
+  if (ctx.header && ctx.header.authorization) {
+    const parts = ctx.header.authorization.split(' ')
+    if (parts.length === 2) {
+      const scheme = parts[0]
+      const token = parts[1]
+
+      if (/^Bearer$/i.test(scheme)) {
+        try {
+          koajwt.verify(token, 'f91', {
+            complete: true
+          })
+        } catch (e) {
+          // TODO: token失败了 给如何处理
+          // const newToken = getToken(token)
+          // ctx.res.setHeader('Authorization', newToken)
+        }
+      }
+    }
+  }
+
+  return next().catch(err => {
+    if (err.status === 401) {
+      ctx.status = 401
+      ctx.body = "Protected resource, use Authorization header to get access\n"
+    } else {
+      throw err
+    }
+  })
+})
 
 app.on('error', (err, ctx) => {
   console.log('server error', err)
