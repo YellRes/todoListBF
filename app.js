@@ -11,7 +11,7 @@ app.use(bodyparser())
 app.use(userRouter.routes())
 app.use(todoListRouter.routes())
 
-// 设置跨域  innovation
+// 设置跨域 
 app.use(async (ctx, next)=> {
   ctx.set('Access-Control-Allow-Origin', '*');
   ctx.set('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
@@ -23,6 +23,7 @@ app.use(async (ctx, next)=> {
   }
 });
 
+// 添加jwt验证
 app.use(koajwt({
   secret: 'f91'
 }).unless({
