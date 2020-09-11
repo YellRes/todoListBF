@@ -51,8 +51,8 @@ const register = async function (ctx, next) {
   if (!result) {
     // 创建记录 插入表格
     const result = await user.create(data)
-    if (result) {`
-      info(ctx, '1000', '注册成功')`
+    if (result) {
+      info(ctx, '1000', '注册成功')
     } else {
       info(ctx, '1001', '注册失败')
     }

@@ -4,12 +4,10 @@ import koajwt from 'koa-jwt'
 import start from './models/db'
 import userRouter from './routes/user'
 import todoListRouter from './routes/todoList'
+import blogRouter from './routes/blog'
 
 
 const app = new Koa()
-app.use(bodyparser())
-app.use(userRouter.routes())
-app.use(todoListRouter.routes())
 
 // 设置跨域 
 app.use(async (ctx, next)=> {
@@ -61,6 +59,12 @@ app.use((ctx, next) => {
     }
   })
 })
+
+app.use(bodyparser())
+app.use(userRouter.routes())
+app.use(todoListRouter.routes())
+app.use(blogRouter.routes())
+
 
 app.on('error', (err, ctx) => {
   console.log('server error', err)

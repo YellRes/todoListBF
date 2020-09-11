@@ -7,7 +7,8 @@ const blogSchema = mongoose.Schema({
   creater: String,
   likeNum: Number,
   viewNum: Number,
-  replyNum: Number
+  replyNum: Number,
+  userId: String
 }, {collection: 'Blog'})
 
 const Blog = mongoose.model('Blog', blogSchema)
