@@ -11,6 +11,7 @@ const blogSchema = mongoose.Schema({
   userId: String,
   tagType: String,
   blogImgUrl: String,
+  blogTitle: string,
 }, {collection: 'Blog'})
 
 const Blog = mongoose.model('Blog', blogSchema)
