@@ -10,6 +10,9 @@ const blogSchema = mongoose.Schema({
   replyNum: Number,
   userId: String,
   tagType: String,
+  
+  createrAvater: string,
+
   blogImgUrl: String,
   blogTitle: string,
 }, {collection: 'Blog'})
