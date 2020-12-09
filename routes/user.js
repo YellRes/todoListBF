@@ -20,5 +20,11 @@ router.post('/login', userControl.login)
 // 获取用用户信息
 router.post('/getUserInfo', userControl.userInfo)
 
+// 
+router.post('/uploadFile', userControl.uploadFile)
+
+
+
+
 export default router
 

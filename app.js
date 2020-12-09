@@ -1,5 +1,6 @@
 import Koa from 'koa'
 import bodyparser from 'koa-bodyparser'
+import koaBody from 'koa-body'
 import koajwt from 'koa-jwt'
 import start from './models/db'
 import userRouter from './routes/user'
@@ -22,11 +23,11 @@ app.use(async (ctx, next)=> {
 });
 
 // 添加jwt验证
-app.use(koajwt({
-  secret: 'f91'
-}).unless({
-  path: [/\/register/, /\/login/]
-}))
+// app.use(koajwt({
+//   secret: 'f91'
+// }).unless({
+//   path: [/\/register/, /\/login/]
+// }))
 
 // 验证token的中间件
 app.use((ctx, next) => {
@@ -60,7 +61,8 @@ app.use((ctx, next) => {
   })
 })
 
-app.use(bodyparser())
+// app.use(bodyparser())
+app.use(koaBody({multipart: true}))
 app.use(userRouter.routes())
 app.use(todoListRouter.routes())
 app.use(blogRouter.routes())
@@ -70,7 +72,7 @@ app.on('error', (err, ctx) => {
   console.log('server error', err)
 })
 
-app.listen(3001, () => {
+app.listen(3002, () => {
   console.log('server is on http://localhost:3001')
 })
 

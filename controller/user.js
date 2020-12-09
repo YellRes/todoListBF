@@ -1,11 +1,15 @@
 import user from '../models/user'
 import todoList from '../models/todoList'
 import jwt from 'jsonwebtoken'
+import formidable from 'formidable'
+import path from 'path'
+import { fstat } from 'fs'
 
 
 // 登录
 const login = async function (ctx, next) {
     const data = ctx.request.body
+    console.log(ctx, 'ctxctxctx');
 
     const result = await user.findOne({ userName: data.userName })
 
@@ -50,7 +54,7 @@ const register = async function (ctx, next) {
   const result = await user.findOne({ userName: data.userName})
   if (!result) {
     // 创建记录 插入表格
-    const result = await user.create(data)
+      
     if (result) {
       info(ctx, '1000', '注册成功')
     } else {
@@ -74,6 +78,29 @@ const userInfo = async function (ctx, next) {
   next()
 }
 
+const uploadFile = async function (ctx, next) {
+  const file = ctx.request.files.file;
+
+
+  console.dir(ctx.request.files.file, 'ctx.request.body.filelds')
+  // console.log(ctx.request.body.files, 'ctx.request.body.files')
+
+  let form = formidable.IncomingForm()
+  form.uploadDir = './uploadDir'
+
+  form.parse(ctx.request.files, (err, fields, files) => {
+    if (err) {
+      throw err
+
+    } else {
+      console.log(files, 'filessssssssss');
+      console.log(fields, 'filessssssssss');
+    }
+  })
+  next()
+
+}
+
 const info = (ctx, code, message, body) => {
   ctx.response.body = {
     header:{code, message},
@@ -84,5 +111,6 @@ const info = (ctx, code, message, body) => {
 export default {
   login,
   register,
-  userInfo
+  userInfo,
+  uploadFile
 }
